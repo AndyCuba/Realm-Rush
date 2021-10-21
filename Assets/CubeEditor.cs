@@ -3,29 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [ExecuteInEditMode]
-[SelectionBase]
+[SelectionBase] // Для выбора в редакторе целого объекта а не его части
+[RequireComponent(typeof(Waypoint))]
 public class CubeEditor : MonoBehaviour
 {
+    Waypoint waypoint;
 
-    [SerializeField] [Range(1f, 20f)] float gridSize = 10f;
-
-    TextMesh textMesh;
+    private void Awake()
+    {
+        waypoint = GetComponent<Waypoint>();
+    }
     void Start()
     {
         
     }
     void Update()
     {
-        Vector3 snapPos;
+        SnapToGrid();
 
-        snapPos.x = Mathf.RoundToInt(transform.position.x / gridSize) * gridSize;
-        snapPos.z = Mathf.RoundToInt(transform.position.z / gridSize) * gridSize;
+        UpdateLabel();
+    }
 
-        textMesh = GetComponentInChildren<TextMesh>();
-        string labelText = snapPos.x / gridSize + "," + snapPos.z / gridSize;
+    private void SnapToGrid()
+    {
+        int gridSize = waypoint.GetGridSize();
+        
+
+        transform.position = new Vector3(
+            waypoint.GetGridPos().x,
+            0f,
+            waypoint.GetGridPos().y
+        );
+    }
+
+    private void UpdateLabel()
+    {
+        int gridSize = waypoint.GetGridSize();
+        Vector2Int gridPos = waypoint.GetGridPos();
+        TextMesh textMesh = GetComponentInChildren<TextMesh>();
+        string labelText = gridPos.x / gridSize + "," + gridPos.y / gridSize;
         textMesh.text = labelText;
-
-        transform.position = new Vector3(snapPos.x, 0f, snapPos.z);
 
         gameObject.name = labelText;
     }
