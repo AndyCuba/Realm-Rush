@@ -8,7 +8,6 @@ using UnityEngine;
 public class CubeEditor : MonoBehaviour
 {
     Waypoint waypoint;
-
     private void Awake()
     {
         waypoint = GetComponent<Waypoint>();
