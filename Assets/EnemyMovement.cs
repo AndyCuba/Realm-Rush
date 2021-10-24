@@ -5,25 +5,26 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-
-    [SerializeField] List<Waypoint> path;
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(FollowPath());
+        Pathfinder pathfinder = FindObjectOfType<Pathfinder>();
+
+        List<Waypoint> path = pathfinder.GetPath();
+        StartCoroutine(FollowPath(path));
     }
 
-    private IEnumerator FollowPath()
+    private IEnumerator FollowPath(List<Waypoint> path)
     {
-        print("Starting patroll..");
+        print("starting patroll..");
 
         foreach (Waypoint waypoint in path)
         {
             transform.position = waypoint.transform.position;
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1f);
         }
 
-        print("Patrol is finished");
+        print("patrol is finished");
     }
 
     // Update is called once per frame

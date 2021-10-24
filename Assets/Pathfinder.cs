@@ -6,7 +6,9 @@ using UnityEngine;
 public class Pathfinder : MonoBehaviour
 {
     [SerializeField] Waypoint startWaypoint, endWaypoint;
-    [SerializeField] bool isFindingPath = true;
+    bool isFindingPath = true;
+    Waypoint searchCenter;
+    List<Waypoint> path = new List<Waypoint>();
 
     Dictionary<Vector2Int, Waypoint> grid = new Dictionary<Vector2Int, Waypoint>();
     Queue<Waypoint> queue = new Queue<Waypoint>();
@@ -18,35 +20,37 @@ public class Pathfinder : MonoBehaviour
         Vector2Int.down,
         Vector2Int.left
     };
-    void Start()
+
+    public List<Waypoint> GetPath()
     {
         LoadBlocks();
         ColorStartAndEnd();
-        Pathfind();
+        BreadthFirstSearch();
+        CreatePath();
+        return path;
     }
 
-    private void Pathfind()
+    private void BreadthFirstSearch()
     {
 
         queue.Enqueue(startWaypoint);
 
         while (queue.Count > 0 && isFindingPath)
         {
-            var searchCenter = queue.Dequeue();
-            searchCenter.isExplored = true;
+            searchCenter = queue.Dequeue();
 
-            StopIfEndFound(searchCenter);
-            ExploreNeighbours(searchCenter);
+            StopIfEndFound();
+
+            ExploreNeighbours();
+            searchCenter.isExplored = true;
         }
 
-        print("Finding finished");
     }
 
-    private void StopIfEndFound(Waypoint waypoint)
+    private void StopIfEndFound()
     {
-        if (waypoint == endWaypoint)
+        if (searchCenter == endWaypoint)
         {
-            print("Start is the same with end");
             isFindingPath = false;
         }
 
@@ -74,24 +78,19 @@ public class Pathfinder : MonoBehaviour
     private void ColorStartAndEnd()
     {
         startWaypoint.SetTopColor(Color.red);
-        endWaypoint.SetTopColor(Color.blue);
+        endWaypoint.SetTopColor(Color.green);
 
     }
 
-    private void ExploreNeighbours(Waypoint searchFrom)
+    private void ExploreNeighbours()
     {
         if (!isFindingPath) return;
-
-        foreach(Vector2Int direction in directions)
+        foreach (Vector2Int direction in directions)
         {
-            Vector2Int explorationCords = searchFrom.GetGridPos() + direction;
-            try
+            Vector2Int explorationCords = searchCenter.GetGridPos() + direction;
+            if (grid.ContainsKey(explorationCords))
             {
                 QueueNewNeighbours(explorationCords);
-            }
-            catch (Exception)
-            {
-                //do nothing
             }
         }
     }
@@ -101,17 +100,33 @@ public class Pathfinder : MonoBehaviour
         
         Waypoint neighbour = grid[explorationCords];
 
-        if (neighbour.isExplored)
+        if (neighbour.isExplored || queue.Contains(neighbour))
         {
 
         }
         else
         {
-            neighbour.SetTopColor(Color.blue);
-
             queue.Enqueue(neighbour);
-            print("Queuing new neighbour" + neighbour);
+
+            neighbour.exploredFrom = searchCenter;
         }
         
+    }
+
+    private void CreatePath()
+    {
+        path.Add(endWaypoint);
+
+        Waypoint previous = endWaypoint.exploredFrom;
+        while (previous != startWaypoint)
+        {
+            path.Add(previous);
+
+            previous = previous.exploredFrom;
+        }
+
+        path.Add(startWaypoint);
+
+        path.Reverse();
     }
 }
