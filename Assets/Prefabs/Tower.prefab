@@ -47,6 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToMove: {fileID: 6801406186533518724}
   targetEnemy: {fileID: 0}
+  attackRange: 20
+  projectileParticle: {fileID: 457113996767536836}
 --- !u!1001 &1407662211595051488
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -116,6 +118,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf11014818f2f9f42ba4b4cd447c76f4, type: 3}
+--- !u!198 &457113996767536836 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1575973519058863908, guid: cf11014818f2f9f42ba4b4cd447c76f4, type: 3}
+  m_PrefabInstance: {fileID: 1407662211595051488}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6804341612395383276
 PrefabInstance:
   m_ObjectHideFlags: 0
