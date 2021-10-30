@@ -16,15 +16,12 @@ public class EnemyMovement : MonoBehaviour
 
     private IEnumerator FollowPath(List<Waypoint> path)
     {
-        print("starting patroll..");
 
         foreach (Waypoint waypoint in path)
         {
             transform.position = waypoint.transform.position;
             yield return new WaitForSeconds(2f); // magic number!
         }
-
-        print("patrol is finished");
     }
 
     // Update is called once per frame
