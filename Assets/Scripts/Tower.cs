@@ -11,11 +11,6 @@ public class Tower : MonoBehaviour
 
     // State
     Transform targetEnemy;
-    
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -35,18 +30,17 @@ public class Tower : MonoBehaviour
     private void SetTargetEnemy()
     {
         EnemyDamage[] sceneEnemies = FindObjectsOfType<EnemyDamage>();
-        
-        if (sceneEnemies.Length > 0)
+        if (sceneEnemies.Length == 0) return;
+
+        Transform closestEnemy = sceneEnemies[0].transform;
+
+        foreach (EnemyDamage testEnemy in sceneEnemies)
         {
-            Transform closestEnemy = sceneEnemies[0].transform;
-
-            foreach (EnemyDamage testEnemy in sceneEnemies)
-            {
-                closestEnemy = GetClosestEnemy(closestEnemy, testEnemy.transform);
-            }
-
-            targetEnemy = closestEnemy;
+            closestEnemy = GetClosestEnemy(closestEnemy, testEnemy.transform);
         }
+
+        targetEnemy = closestEnemy;
+
     }
 
     private void CheckForEnemy()
@@ -54,7 +48,6 @@ public class Tower : MonoBehaviour
         Vector3 enemyPos = targetEnemy.transform.position;
 
         float distanceToEnemy = Vector3.Distance(enemyPos, transform.position);
-
         if (distanceToEnemy <= attackRange)
         {
             FireAtEnemy(true);

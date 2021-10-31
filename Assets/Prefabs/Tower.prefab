@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToMove: {fileID: 6801406186533518724}
-  targetEnemy: {fileID: 0}
   attackRange: 20
   projectileParticle: {fileID: 457113996767536836}
 --- !u!1001 &1407662211595051488
@@ -70,7 +69,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1432784070974016906, guid: cf11014818f2f9f42ba4b4cd447c76f4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 7.8
       objectReference: {fileID: 0}
     - target: {fileID: 1432784070974016906, guid: cf11014818f2f9f42ba4b4cd447c76f4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -101,17 +100,45 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1575973519058863908, guid: cf11014818f2f9f42ba4b4cd447c76f4, type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1575973519058863908, guid: cf11014818f2f9f42ba4b4cd447c76f4, type: 3}
+      propertyPath: lengthInSec
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1575973519058863908, guid: cf11014818f2f9f42ba4b4cd447c76f4, type: 3}
       propertyPath: moveWithTransform
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1575973519058863908, guid: cf11014818f2f9f42ba4b4cd447c76f4, type: 3}
+      propertyPath: CollisionModule.minKillSpeed
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1575973519058863908, guid: cf11014818f2f9f42ba4b4cd447c76f4, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1575973519058863908, guid: cf11014818f2f9f42ba4b4cd447c76f4, type: 3}
       propertyPath: InitialModule.startSpeed.scalar
-      value: 300
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 1575973519058863908, guid: cf11014818f2f9f42ba4b4cd447c76f4, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1575973519058863908, guid: cf11014818f2f9f42ba4b4cd447c76f4, type: 3}
+      propertyPath: CollisionModule.multiplyColliderForceByCollisionAngle
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6777552812146750923, guid: cf11014818f2f9f42ba4b4cd447c76f4, type: 3}
+      propertyPath: m_RenderAlignment
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6777552812146750923, guid: cf11014818f2f9f42ba4b4cd447c76f4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b5fdbb1d0f5374cd9925eab0238603fa, type: 2}
     - target: {fileID: 7809321207959686930, guid: cf11014818f2f9f42ba4b4cd447c76f4, type: 3}
       propertyPath: m_Name
       value: Bullets
