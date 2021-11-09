@@ -46,8 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToMove: {fileID: 6801406186533518724}
-  attackRange: 20
+  attackRange: 30
   projectileParticle: {fileID: 457113996767536836}
+  baseWaypoint: {fileID: 0}
 --- !u!1001 &1407662211595051488
 PrefabInstance:
   m_ObjectHideFlags: 0
